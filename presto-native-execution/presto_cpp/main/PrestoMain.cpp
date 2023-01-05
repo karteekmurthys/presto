@@ -16,6 +16,7 @@
 #include <gflags/gflags_declare.h>
 #include <glog/logging.h>
 #include "presto_cpp/main/PrestoServer.h"
+#include "presto_cpp/main/common//VeloxStatsReporter.h"
 #include "velox/common/base/StatsReporter.h"
 
 DEFINE_string(etc_dir, ".", "etc directory for presto configuration");
@@ -23,12 +24,12 @@ DEFINE_string(etc_dir, ".", "etc directory for presto configuration");
 int main(int argc, char* argv[]) {
   folly::init(&argc, &argv);
 
+  // Initialize singleton for the reporter.
+  folly::Singleton<facebook::velox::BaseStatsReporter> reporter(
+      []() { return new VeloxStatsReporter(); });
+  facebook::velox::BaseStatsReporter::registered = true;
   facebook::presto::PrestoServer presto(FLAGS_etc_dir);
   presto.run();
   LOG(INFO) << "SHUTDOWN: Exiting main()";
 }
 
-// Initialize singleton for the reporter.
-folly::Singleton<facebook::velox::BaseStatsReporter> reporter([]() {
-  return new facebook::velox::DummyStatsReporter();
-});

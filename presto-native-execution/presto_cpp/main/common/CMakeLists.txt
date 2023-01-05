@@ -11,7 +11,8 @@
 # limitations under the License.
 
 add_library(presto_exception Exception.cpp)
-add_library(presto_common Counters.cpp Utils.cpp ConfigReader.cpp Configs.cpp)
+add_library(presto_common Counters.cpp Utils.cpp ConfigReader.cpp Configs.cpp
+                          VeloxStatsReporter.cpp)
 
 target_link_libraries(presto_exception velox_exception)
 target_link_libraries(presto_common velox_exception velox_config)
