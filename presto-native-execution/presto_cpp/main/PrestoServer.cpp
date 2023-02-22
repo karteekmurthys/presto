@@ -17,6 +17,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/lexical_cast.hpp>
 #include <glog/logging.h>
+#include "presto_cpp/main/AhanaTaskListener.h"
 #include "presto_cpp/main/Announcer.h"
 #include "presto_cpp/main/PeriodicTaskManager.h"
 #include "presto_cpp/main/PrestoExchangeSource.h"
@@ -417,7 +418,7 @@ std::function<folly::SocketAddress()> PrestoServer::discoveryAddressLookup() {
 }
 
 std::shared_ptr<velox::exec::TaskListener> PrestoServer::getTaskListener() {
-  return nullptr;
+  return std::make_shared<ahana::AhanaTaskListener>();
 }
 
 std::shared_ptr<velox::exec::ExprSetListener>
