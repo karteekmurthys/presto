@@ -127,6 +127,15 @@ The configuration properties of Presto C++ workers are described here, in alphab
   
   The exceeding capacity must allocate from the non-reserved query memory.
 
+``runtime-metrics-collection-enabled``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* **Type:** ``boolean``
+* **Default value:** ``false``
+
+ Enables collection of worker level metrics. If the Prestissimo server was compiled with
+ PRESTO_ENABLE_PROMETHEUS_REPORTER set to ON, the server exposes an endpoint ``/v1/info/metrics`` to collect
+ metrics in prometheus format.
+
 ``system-memory-gb``
 ^^^^^^^^^^^^^^^^^^^^
 
